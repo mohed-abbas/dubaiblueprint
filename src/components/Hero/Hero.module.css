@@ -53,6 +53,7 @@
 
 .headlineWrapper {
   width: 347px;
+  perspective: 1000px;
 }
 
 .headlinePrimary,
@@ -69,6 +70,13 @@
 
 .headlinePrimary {
   color: var(--color-secondary);
+  transform-style: preserve-3d;
+}
+
+/* Style for split characters in cycling animation */
+.headlinePrimary :global(.split-char) {
+  display: inline-block;
+  transform-style: preserve-3d;
 }
 
 .headlineGradient {

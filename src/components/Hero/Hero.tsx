@@ -12,6 +12,13 @@ const ASSETS = {
   arrowIcon: "/assets/icon-arrow-up-right.svg",
 };
 
+// Cycling headlines for primary text animation
+const CYCLING_HEADLINES = [
+  "See Clearly.",
+  "Know More.",
+  "Build Precisely.",
+];
+
 export interface HeroProps {
   headline?: {
     primary: string;
@@ -52,13 +59,14 @@ export function Hero({
     if (typeof window === "undefined") return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
+      // Initial entrance timeline for static elements
+      const entranceTl = gsap.timeline({
         defaults: { ease: "power3.out" },
       });
 
       // Animate hero asset (scale + fade)
       if (assetRef.current) {
-        tl.fromTo(
+        entranceTl.fromTo(
           assetRef.current,
           { opacity: 0, scale: 0.9 },
           { opacity: 1, scale: 1, duration: 1.2 },
@@ -66,27 +74,10 @@ export function Hero({
         );
       }
 
-      // Animate primary headline with stagger
-      if (headlinePrimaryRef.current) {
-        const splitPrimary = splitText(headlinePrimaryRef.current, { type: "words" });
-        tl.fromTo(
-          splitPrimary.words,
-          { opacity: 0, y: 60, rotateX: -45 },
-          {
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            duration: 0.8,
-            stagger: 0.08,
-          },
-          0.3
-        );
-      }
-
       // Animate gradient headline with stagger
       if (headlineGradientRef.current) {
         const splitGradient = splitText(headlineGradientRef.current, { type: "words" });
-        tl.fromTo(
+        entranceTl.fromTo(
           splitGradient.words,
           { opacity: 0, y: 60, rotateX: -45 },
           {
@@ -102,7 +93,7 @@ export function Hero({
 
       // Animate tagline
       if (taglineRef.current) {
-        tl.fromTo(
+        entranceTl.fromTo(
           taglineRef.current,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 0.6 },
@@ -112,13 +103,66 @@ export function Hero({
 
       // Animate CTA button
       if (ctaRef.current) {
-        tl.fromTo(
+        entranceTl.fromTo(
           ctaRef.current,
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.5 },
           1
         );
       }
+
+      // Cycling animation for primary headline
+      let currentIndex = 0;
+
+      const animateCycle = () => {
+        const textElement = headlinePrimaryRef.current;
+        if (!textElement) return;
+
+        // Set new text content
+        textElement.textContent = CYCLING_HEADLINES[currentIndex];
+
+        // Split into characters
+        const split = splitText(textElement, { type: "chars" });
+
+        // Create timeline for this cycle
+        const cycleTl = gsap.timeline({
+          onComplete: () => {
+            split.revert();
+            currentIndex = (currentIndex + 1) % CYCLING_HEADLINES.length;
+            animateCycle(); // Recursive call for next text
+          },
+        });
+
+        // ENTER: Characters fade in from bottom with 3D rotation
+        cycleTl.fromTo(
+          split.chars,
+          { opacity: 0, y: 60, rotateX: -45 },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.6,
+            stagger: 0.04,
+            ease: "power3.out",
+          }
+        );
+
+        // HOLD: Wait 2 seconds
+        cycleTl.to({}, { duration: 2 });
+
+        // EXIT: Characters fade out upward with 3D rotation
+        cycleTl.to(split.chars, {
+          opacity: 0,
+          y: -60,
+          rotateX: 45,
+          duration: 0.6,
+          stagger: 0.04,
+          ease: "power3.in",
+        });
+      };
+
+      // Start the cycling animation after entrance completes
+      entranceTl.call(animateCycle, [], 0.3);
     }, heroRef);
 
     return () => ctx.revert();
