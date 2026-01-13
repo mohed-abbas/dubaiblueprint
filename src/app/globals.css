@@ -204,24 +204,3 @@ textarea:not([rows]) {
   color: transparent;
 }
 
-/* ===================
- * GLASSMORPHIC UTILITIES
- * From Figma Dubai Blueprint
- * =================== */
-
-.glass-button {
-  position: relative;
-  background-color: var(--glass-bg);
-  border-radius: var(--glass-radius);
-  padding: var(--glass-padding-y) var(--glass-padding-x);
-  box-shadow: var(--glass-shadow);
-  border: var(--glass-border);
-  cursor: pointer;
-  transition: background-color var(--duration-200) var(--ease-out),
-              border-color var(--duration-200) var(--ease-out);
-}
-
-.glass-button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.2);
-}

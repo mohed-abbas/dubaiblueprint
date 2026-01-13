@@ -1,18 +1,18 @@
 "use client";
 
-import { Hero } from "@/components/Hero";
+import { HeroDay } from "@/components/HeroDay";
 import { Navbar } from "@/components/Navbar";
 import { Ticker } from "@/components/Ticker";
 
-export default function Home() {
+export default function DayPage() {
   return (
     <main>
-      {/* Hero Section with Navbar and Ticker */}
+      {/* Day Hero Section */}
       <div style={{ position: "relative" }}>
         <Navbar onMenuClick={() => {}} />
-        <Hero
+        <HeroDay
           headline={{
-            primary: "See Clearly.",
+            primary: "Know More.",
             gradient: "Decide Better.",
           }}
           tagline="Independent Insight for the City of the Future."

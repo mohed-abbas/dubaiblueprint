@@ -187,6 +187,11 @@
   /* Gradient (from Figma) */
   --gradient-accent: linear-gradient(to right, var(--color-gradient-start), var(--color-gradient-end));
 
+  /* Day Mode Gradient (from Figma node 122:134) */
+  --color-gradient-day-start: #12517e;
+  --color-gradient-day-end: #2e3838;
+  --gradient-day: linear-gradient(to right, var(--color-gradient-day-start), var(--color-gradient-day-end));
+
   /* ===================
    * ANIMATION
    * =================== */
