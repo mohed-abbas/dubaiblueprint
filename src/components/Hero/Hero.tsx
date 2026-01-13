@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/gsap/splitText";
+import { LightRays } from "@/components/LightRays";
 import styles from "./Hero.module.css";
 
 // Local Assets
@@ -170,6 +171,24 @@ export function Hero({
 
   return (
     <section ref={heroRef} className={styles.hero} data-node-id="98:50">
+      {/* Light Rays Background Layer */}
+      <div className={styles.lightRaysContainer}>
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#ffffff"
+          raysSpeed={0.8}
+          lightSpread={1.2}
+          rayLength={2.5}
+          pulsating={false}
+          fadeDistance={1.0}
+          saturation={1.0}
+          followMouse={true}
+          mouseInfluence={0.05}
+          noiseAmount={0}
+          distortion={0}
+        />
+      </div>
+
       {/* Hero 3D Asset */}
       <div ref={assetRef} className={styles.heroAsset} data-node-id="98:56">
         <Image
