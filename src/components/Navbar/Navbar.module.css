@@ -1,0 +1,163 @@
+/*
+ * Navbar Component Styles
+ * =======================
+ * From Figma: Dubai Blueprint (node: 98:91)
+ * Desktop-first responsive styles
+ */
+
+.navbar {
+  position: absolute;
+  top: 54px;
+  left: 0;
+  right: 0;
+  z-index: var(--z-fixed);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-inline: 169px;
+  pointer-events: none;
+}
+
+.navbar > * {
+  pointer-events: auto;
+}
+
+/* ===================
+ * MENU BUTTON
+ * Glassmorphic pill button
+ * =================== */
+
+.menuButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-width: 104px;
+  padding: var(--glass-padding-y) var(--glass-padding-x);
+  background-color: var(--glass-bg);
+  border: var(--glass-border);
+  border-radius: var(--glass-radius);
+  cursor: pointer;
+  transition: background-color var(--duration-200) var(--ease-out),
+              border-color var(--duration-200) var(--ease-out);
+}
+
+.menuButton:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.menuButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.menuText {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  color: var(--color-secondary);
+  letter-spacing: var(--tracking-body-tight);
+  text-align: center;
+}
+
+.menuIcon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.glassOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--glass-shadow);
+  pointer-events: none;
+}
+
+/* ===================
+ * LOGO
+ * Star icon + text
+ * =================== */
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.logoIcon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.logoText {
+  font-family: var(--font-body);
+  font-size: var(--text-logo);
+  font-weight: var(--font-medium);
+  color: var(--color-secondary);
+  letter-spacing: var(--tracking-logo);
+  text-align: center;
+}
+
+/* ===================
+ * RESPONSIVE STYLES
+ * Desktop-first
+ * =================== */
+
+/* Laptop (1280px and below) */
+@media (max-width: 1280px) {
+  .navbar {
+    padding-inline: 80px;
+  }
+}
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+  .navbar {
+    top: 40px;
+    padding-inline: 60px;
+  }
+
+  .logoText {
+    font-size: var(--text-xl);
+  }
+}
+
+/* Mobile (768px and below) */
+@media (max-width: 768px) {
+  .navbar {
+    top: 24px;
+    padding-inline: var(--section-padding-x);
+  }
+
+  .menuButton {
+    min-width: auto;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .menuText {
+    display: none;
+  }
+
+  .logoIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .logoText {
+    font-size: var(--text-lg);
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .logoText {
+    font-size: var(--text-base);
+  }
+}

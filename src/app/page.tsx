@@ -1,66 +1,55 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { Hero } from "@/components/Hero";
+import { Navbar } from "@/components/Navbar";
+import { Ticker } from "@/components/Ticker";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main>
+      {/* Hero Section with Navbar and Ticker */}
+      <div style={{ position: "relative" }}>
+        <Navbar onMenuClick={() => console.log("Menu clicked")} />
+        <Hero
+          headline={{
+            primary: "See Clearly.",
+            gradient: "Decide Better.",
+          }}
+          tagline="Independent Insight for the City of the Future."
+          cta={{
+            label: "Get Clarity On Whatsapp",
+            href: "#contact",
+          }}
         />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        <Ticker
+          items={[
+            "Family buyers prioritising long-term liveability",
+            "Payment plan structures influencing buyer profiles",
+            "End-user demand favouring larger floorplans",
+            "Rental demand shifting by micro-location",
+            "Yield stability outperforming price speculation",
+            "Residency-linked demand remaining resilient",
+            "Branded residences gaining share of new demand",
+          ]}
+          speed={30}
+          direction="left"
+        />
+      </div>
+
+      {/* Additional sections will be added here */}
+      <section
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#0a0a0a",
+        }}
+      >
+        <p style={{ fontSize: "1.5rem", color: "#666" }}>
+          More content sections coming from Figma...
+        </p>
+      </section>
+    </main>
   );
 }

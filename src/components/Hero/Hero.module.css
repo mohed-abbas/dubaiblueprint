@@ -1,0 +1,324 @@
+/*
+ * Hero Component Styles
+ * ======================
+ * From Figma: Dubai Blueprint (node: 98:50)
+ * Desktop-first responsive styles
+ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg-primary);
+  overflow: hidden;
+}
+
+/* ===================
+ * HERO 3D ASSET
+ * Crystal Burj Khalifa
+ * =================== */
+
+.heroAsset {
+  position: absolute;
+  top: 111px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 894px;
+  height: 1150px;
+  z-index: var(--z-base);
+  pointer-events: none;
+}
+
+.heroAssetImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===================
+ * HEADLINE SECTION
+ * Split headlines with gradient
+ * =================== */
+
+.headline {
+  position: absolute;
+  top: 371px;
+  left: 128px;
+  right: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: var(--z-dropdown);
+}
+
+.headlineWrapper {
+  width: 347px;
+}
+
+.headlinePrimary,
+.headlineGradient {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-headline);
+  font-weight: var(--font-normal);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-headline);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.headlinePrimary {
+  color: var(--color-secondary);
+}
+
+.headlineGradient {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Fix gradient inheritance for split text animation */
+.headlineGradient :global(.split-word) {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ===================
+ * HERO DETAILS
+ * Tagline + CTA
+ * =================== */
+
+.heroDetails {
+  position: absolute;
+  top: 673px;
+  left: 167px;
+  width: 232px;
+  z-index: var(--z-dropdown);
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: 1.5;
+  letter-spacing: var(--tracking-body-tight);
+  color: var(--color-secondary);
+  margin-bottom: var(--space-4);
+  max-width: 230px;
+}
+
+/* ===================
+ * CTA BUTTON
+ * Glassmorphic pill
+ * =================== */
+
+.ctaButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--glass-padding-y) var(--glass-padding-x);
+  background-color: var(--glass-bg);
+  border: var(--glass-border);
+  border-radius: var(--glass-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-200) var(--ease-out),
+              border-color var(--duration-200) var(--ease-out);
+}
+
+.ctaButton:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ctaButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.ctaText {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  color: var(--color-secondary);
+  letter-spacing: var(--tracking-body-tight);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ctaIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.glassOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--glass-shadow);
+  pointer-events: none;
+}
+
+/* ===================
+ * RESPONSIVE STYLES
+ * Desktop-first
+ * =================== */
+
+/* Large Desktop (1440px and below) */
+@media (max-width: 1440px) {
+  .headline {
+    left: 80px;
+    right: 80px;
+  }
+
+  .heroDetails {
+    left: 100px;
+  }
+}
+
+/* Laptop (1280px and below) */
+@media (max-width: 1280px) {
+  .headline {
+    top: 320px;
+    left: 60px;
+    right: 60px;
+  }
+
+  .heroDetails {
+    top: 580px;
+    left: 80px;
+  }
+
+  .heroAsset {
+    top: 90px;
+    width: 700px;
+    height: 900px;
+  }
+}
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+  .headline {
+    top: 280px;
+    left: 40px;
+    right: 40px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .headlineWrapper {
+    width: auto;
+  }
+
+  .headlinePrimary,
+  .headlineGradient {
+    font-size: 3rem;
+    text-align: left;
+  }
+
+  .heroDetails {
+    top: 480px;
+    left: 40px;
+  }
+
+  .heroAsset {
+    top: 80px;
+    left: 60%;
+    width: 600px;
+    height: 770px;
+  }
+}
+
+/* Tablet Portrait (768px and below) */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100svh;
+  }
+
+  .headline {
+    top: 200px;
+    left: var(--section-padding-x);
+    right: var(--section-padding-x);
+  }
+
+  .headlinePrimary,
+  .headlineGradient {
+    font-size: 2.5rem;
+  }
+
+  .heroDetails {
+    top: 380px;
+    left: var(--section-padding-x);
+    width: auto;
+    max-width: 280px;
+  }
+
+  .heroAsset {
+    top: 70px;
+    left: 65%;
+    width: 500px;
+    height: 643px;
+  }
+
+  .tagline {
+    font-size: var(--text-sm);
+  }
+
+  .ctaText {
+    font-size: var(--text-sm);
+  }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+  .headline {
+    top: 160px;
+  }
+
+  .headlinePrimary,
+  .headlineGradient {
+    font-size: 2rem;
+  }
+
+  .heroDetails {
+    top: 320px;
+  }
+
+  .heroAsset {
+    top: 60px;
+    left: 70%;
+    width: 400px;
+    height: 515px;
+  }
+
+  .ctaButton {
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .ctaIcon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Small Mobile (320px and below) */
+@media (max-width: 320px) {
+  .headlinePrimary,
+  .headlineGradient {
+    font-size: 1.75rem;
+  }
+
+  .heroAsset {
+    top: 50px;
+    width: 320px;
+    height: 412px;
+  }
+}

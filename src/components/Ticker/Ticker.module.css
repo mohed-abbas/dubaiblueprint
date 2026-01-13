@@ -1,0 +1,107 @@
+/*
+ * Ticker Component Styles
+ * ========================
+ * From Figma: Dubai Blueprint (node: 98:57)
+ * Infinite horizontal scroll ticker
+ */
+
+.ticker {
+  position: absolute;
+  bottom: 55px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 17px;
+  overflow: hidden;
+  z-index: var(--z-dropdown);
+}
+
+.tickerTrack {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+}
+
+.tickerItem {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+  flex-shrink: 0;
+}
+
+.tickerText {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: 1;
+  letter-spacing: var(--tracking-ticker);
+  color: var(--color-secondary);
+  white-space: nowrap;
+}
+
+.tickerDot {
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  margin-right: 23px;
+}
+
+/* ===================
+ * RESPONSIVE STYLES
+ * Desktop-first
+ * =================== */
+
+/* Laptop (1280px and below) */
+@media (max-width: 1280px) {
+  .ticker {
+    bottom: 40px;
+  }
+}
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+  .ticker {
+    bottom: 30px;
+  }
+
+  .tickerText {
+    font-size: var(--text-sm);
+  }
+
+  .tickerItem {
+    gap: 16px;
+  }
+
+  .tickerDot {
+    margin-right: 16px;
+  }
+}
+
+/* Mobile (768px and below) */
+@media (max-width: 768px) {
+  .ticker {
+    bottom: 24px;
+  }
+
+  .tickerText {
+    font-size: var(--text-xs);
+  }
+
+  .tickerItem {
+    gap: 12px;
+  }
+
+  .tickerDot {
+    width: 4px;
+    height: 4px;
+    margin-right: 12px;
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .ticker {
+    bottom: 16px;
+  }
+}

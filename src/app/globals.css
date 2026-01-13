@@ -1,42 +1,227 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Global Styles
+ * ==============
+ * Base styles and resets for the application
+ */
+
+/* Import Design System Variables */
+@import "../styles/variables.css";
+
+/* ===================
+ * FONT FACE
+ * Haffer-TRIAL Font Family
+ * =================== */
+
+@font-face {
+  font-family: 'Haffer';
+  src: url('/fonts/Haffer-TRIAL-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: 'Haffer';
+  src: url('/fonts/Haffer-TRIAL-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
-html,
+@font-face {
+  font-family: 'Haffer';
+  src: url('/fonts/Haffer-TRIAL-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===================
+ * CSS RESET
+ * =================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  line-height: var(--leading-normal);
+  font-family: 'Haffer', var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-secondary);
+  background-color: var(--color-bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* Set shorter line heights on headings and interactive elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+label {
+  line-height: var(--leading-tight);
 }
 
+/* Balance text wrapping on headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* Improve paragraph readability */
+p {
+  text-wrap: pretty;
+  max-width: 75ch;
+}
+
+/* Anchor default styles */
 a {
   color: inherit;
   text-decoration: none;
+  text-decoration-skip-ink: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Make images easier to work with */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+/* ===================
+ * UTILITY CLASSES
+ * =================== */
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Container utility */
+.container {
+  width: 100%;
+  max-width: var(--container-2xl);
+  margin-inline: auto;
+  padding-inline: var(--section-padding-x);
+}
+
+/* ===================
+ * ANIMATION UTILITIES
+ * For GSAP SplitText
+ * =================== */
+
+.split-char,
+.split-word {
+  display: inline-block;
+}
+
+.split-line {
+  display: block;
+  overflow: hidden;
+}
+
+/* Hide elements before GSAP animation */
+.gsap-hidden {
+  visibility: hidden;
+}
+
+/* ===================
+ * GRADIENT TEXT UTILITY
+ * From Figma Dubai Blueprint
+ * =================== */
+
+.gradient-text {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ===================
+ * GLASSMORPHIC UTILITIES
+ * From Figma Dubai Blueprint
+ * =================== */
+
+.glass-button {
+  position: relative;
+  background-color: var(--glass-bg);
+  border-radius: var(--glass-radius);
+  padding: var(--glass-padding-y) var(--glass-padding-x);
+  box-shadow: var(--glass-shadow);
+  border: var(--glass-border);
+  cursor: pointer;
+  transition: background-color var(--duration-200) var(--ease-out),
+              border-color var(--duration-200) var(--ease-out);
+}
+
+.glass-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
 }
