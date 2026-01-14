@@ -50,6 +50,7 @@
   height: 1150px;
   z-index: 2;
   pointer-events: none;
+  will-change: transform;
 }
 
 .heroAssetImage {
@@ -72,6 +73,7 @@
   align-items: center;
   justify-content: space-between;
   z-index: var(--z-dropdown);
+  will-change: transform;
 }
 
 .headlineWrapper {
@@ -151,6 +153,7 @@
   left: 167px;
   width: 232px;
   z-index: var(--z-dropdown);
+  will-change: transform;
 }
 
 .tagline {

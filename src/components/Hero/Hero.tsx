@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/gsap/splitText";
+import { createParallax } from "@/lib/animations/heroAnimations";
 import { LightRays } from "@/components/LightRays";
 import styles from "./Hero.module.css";
 
@@ -55,6 +56,8 @@ export function Hero({
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
   const assetRef = useRef<HTMLDivElement>(null);
+  const headlineContainerRef = useRef<HTMLDivElement>(null);
+  const heroDetailsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -210,6 +213,22 @@ export function Hero({
 
       // Start the cycling animation after entrance completes
       entranceTl.call(animateCycle, [], 0.3);
+
+      // Add layered parallax (desktop only)
+      if (window.innerWidth > 768 && heroRef.current) {
+        // Building - mid layer (25%)
+        if (assetRef.current) {
+          createParallax(assetRef.current, heroRef.current, 0.25);
+        }
+        // Headlines - front layer (40%)
+        if (headlineContainerRef.current) {
+          createParallax(headlineContainerRef.current, heroRef.current, 0.40);
+        }
+        // Details - closest layer (55%)
+        if (heroDetailsContainerRef.current) {
+          createParallax(heroDetailsContainerRef.current, heroRef.current, 0.55);
+        }
+      }
     }, heroRef);
 
     return () => ctx.revert();
@@ -249,7 +268,7 @@ export function Hero({
       </div>
 
       {/* Headline Section */}
-      <div className={styles.headline} data-node-id="98:53">
+      <div ref={headlineContainerRef} className={styles.headline} data-node-id="98:53">
         <div className={styles.headlineWrapper} data-node-id="98:92">
           <span ref={headlinePrimaryRef} className={styles.headlinePrimary}>
             {headline.primary}
@@ -263,7 +282,7 @@ export function Hero({
       </div>
 
       {/* Hero Details */}
-      <div className={styles.heroDetails} data-node-id="98:94">
+      <div ref={heroDetailsContainerRef} className={styles.heroDetails} data-node-id="98:94">
         <p ref={taglineRef} className={styles.tagline} data-node-id="98:52">
           {tagline}
         </p>
