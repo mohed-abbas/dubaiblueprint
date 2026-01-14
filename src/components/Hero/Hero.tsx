@@ -120,6 +120,22 @@ export function Hero({
           },
           0.5
         );
+
+        // Add continuous shine animation via GSAP (infinite loop)
+        splitGradient.chars.forEach((char) => {
+          const charLeft = char.offsetLeft;
+          gsap.fromTo(
+            char,
+            { backgroundPosition: `-${totalWidth + charLeft}px 0, -${charLeft}px 0` },
+            {
+              backgroundPosition: `${totalWidth - charLeft}px 0, -${charLeft}px 0`,
+              duration: 6,
+              ease: "none",
+              repeat: -1,
+              delay: 1,
+            }
+          );
+        });
       }
 
       // Animate tagline

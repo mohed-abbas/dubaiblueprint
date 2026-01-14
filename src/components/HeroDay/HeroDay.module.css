@@ -140,16 +140,13 @@
   -webkit-text-fill-color: transparent;
   color: transparent;
   animation: shine 3s linear infinite;
+  transform-style: preserve-3d;
 }
 
-/* Fix gradient inheritance for split text animation */
-.headlineGradient :global(.split-word) {
-  background: inherit;
-  background-size: inherit;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+/* Gradient character animation support */
+.headlineGradient :global(.split-char) {
+  display: inline-block;
+  transform-style: preserve-3d;
 }
 
 /* ===================
