@@ -57,6 +57,7 @@ export function HeroDay({
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
   const assetRef = useRef<HTMLDivElement>(null);
+  const cycleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -82,67 +83,20 @@ export function HeroDay({
         );
       }
 
-      // Animate gradient headline with character stagger (matching headlinePrimary)
+      // Animate gradient headline as a whole (not split)
+      // Shine effect handled by CSS animation - no JS override of background styles
       if (headlineGradientRef.current) {
-        const element = headlineGradientRef.current;
-
-        // Split into characters
-        const splitGradient = splitText(element, { type: "chars" });
-
-        // Get total width for gradient calculation
-        const totalWidth = element.offsetWidth;
-
-        // Calculate and apply background-position for each character
-        splitGradient.chars.forEach((char) => {
-          const charLeft = char.offsetLeft;
-
-          // Apply gradient with coordinated position (using day gradient)
-          char.style.background = `linear-gradient(
-            120deg,
-            transparent 0%,
-            transparent 40%,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 60%,
-            transparent 100%
-          ), var(--gradient-day)`;
-          char.style.backgroundSize = `${totalWidth}px 100%, ${totalWidth}px 100%`;
-          char.style.backgroundPosition = `-${charLeft}px 0, -${charLeft}px 0`;
-          (char.style as CSSStyleDeclaration & { webkitBackgroundClip: string }).webkitBackgroundClip = "text";
-          char.style.backgroundClip = "text";
-          (char.style as CSSStyleDeclaration & { webkitTextFillColor: string }).webkitTextFillColor = "transparent";
-          char.style.color = "transparent";
-        });
-
-        // Animate exactly like headlinePrimary
         entranceTl.fromTo(
-          splitGradient.chars,
-          { opacity: 0, y: 60, rotateX: -45 },
+          headlineGradientRef.current,
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
-            rotateX: 0,
-            duration: 0.6,
-            stagger: 0.04,
+            duration: 0.8,
             ease: "power3.out",
           },
           0.5
         );
-
-        // Add continuous shine animation via GSAP (infinite loop)
-        splitGradient.chars.forEach((char) => {
-          const charLeft = char.offsetLeft;
-          gsap.fromTo(
-            char,
-            { backgroundPosition: `-${totalWidth + charLeft}px 0, -${charLeft}px 0` },
-            {
-              backgroundPosition: `${totalWidth - charLeft}px 0, -${charLeft}px 0`,
-              duration: 6,
-              ease: "none",
-              repeat: -1,
-              delay: 1,
-            }
-          );
-        });
       }
 
       // Animate tagline
@@ -165,7 +119,8 @@ export function HeroDay({
         );
       }
 
-      // Cycling animation for primary headline
+      // Optimized cycling animation for primary headline
+      // Uses setTimeout scheduling for smoother transitions
       let currentIndex = 0;
 
       const animateCycle = () => {
@@ -179,13 +134,7 @@ export function HeroDay({
         const split = splitText(textElement, { type: "chars" });
 
         // Create timeline for this cycle
-        const cycleTl = gsap.timeline({
-          onComplete: () => {
-            split.revert();
-            currentIndex = (currentIndex + 1) % CYCLING_HEADLINES.length;
-            animateCycle(); // Recursive call for next text
-          },
-        });
+        const cycleTl = gsap.timeline();
 
         // ENTER: Characters fade in from bottom with 3D rotation
         cycleTl.fromTo(
@@ -201,10 +150,7 @@ export function HeroDay({
           }
         );
 
-        // HOLD: Wait 2 seconds
-        cycleTl.to({}, { duration: 2 });
-
-        // EXIT: Characters fade out upward with 3D rotation
+        // HOLD: Wait 2 seconds, then exit
         cycleTl.to(split.chars, {
           opacity: 0,
           y: -60,
@@ -212,6 +158,16 @@ export function HeroDay({
           duration: 0.6,
           stagger: 0.04,
           ease: "power3.in",
+          delay: 2,
+          onComplete: () => {
+            // Revert split after animation completes
+            split.revert();
+            // Schedule next cycle (use ref for cleanup)
+            cycleTimeoutRef.current = setTimeout(() => {
+              currentIndex = (currentIndex + 1) % CYCLING_HEADLINES.length;
+              animateCycle();
+            }, 50);
+          },
         });
       };
 
@@ -219,7 +175,13 @@ export function HeroDay({
       entranceTl.call(animateCycle, [], 0.3);
     }, heroRef);
 
-    return () => ctx.revert();
+    return () => {
+      // Clear any pending cycle timeout
+      if (cycleTimeoutRef.current) {
+        clearTimeout(cycleTimeoutRef.current);
+      }
+      ctx.revert();
+    };
   }, []);
 
   return (

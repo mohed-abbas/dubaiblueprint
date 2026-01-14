@@ -82,6 +82,8 @@
   align-items: center;
   justify-content: space-between;
   z-index: var(--z-dropdown);
+  /* Performance: limit reflow scope */
+  contain: layout style;
 }
 
 .headlineWrapper {
@@ -99,6 +101,8 @@
   letter-spacing: var(--tracking-headline);
   text-align: left;
   white-space: nowrap;
+  /* Performance: hint browser to prepare for animations */
+  will-change: transform, opacity;
 }
 
 .headlinePrimary {
@@ -110,9 +114,10 @@
 .headlinePrimary :global(.split-char) {
   display: inline-block;
   transform-style: preserve-3d;
+  will-change: transform, opacity;
 }
 
-/* Shine animation for metallic effect */
+/* Shine animation - single CSS animation (not per-character GSAP) */
 @keyframes shine {
   0% {
     background-position: -200% center, 0 0;
@@ -123,13 +128,14 @@
 }
 
 .headlineGradient {
-  /* Layered gradients: shine on top, day gradient below */
+  position: relative;
+  /* Layered gradients: shine sweep on top, base gradient below */
   background:
     linear-gradient(
       120deg,
       transparent 0%,
       transparent 40%,
-      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.4) 50%,
       transparent 60%,
       transparent 100%
     ),
@@ -139,14 +145,16 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shine 3s linear infinite;
   transform-style: preserve-3d;
+  /* Single CSS animation - slow, smooth, linear infinite loop */
+  animation: shine 9s linear infinite;
 }
 
 /* Gradient character animation support */
 .headlineGradient :global(.split-char) {
   display: inline-block;
   transform-style: preserve-3d;
+  will-change: transform, opacity;
 }
 
 /* ===================
