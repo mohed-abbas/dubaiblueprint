@@ -52,7 +52,7 @@
 
 .heroAsset {
   position: absolute;
-  top: 200px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 829px;
@@ -306,7 +306,6 @@
   }
 
   .heroAsset {
-    top: 70px;
     width: 650px;
     height: 700px;
   }
@@ -339,7 +338,6 @@
   }
 
   .heroAsset {
-    top: 60px;
     left: 55%;
     width: 550px;
     height: 600px;
@@ -371,7 +369,6 @@
   }
 
   .heroAsset {
-    top: 50px;
     left: 60%;
     width: 450px;
     height: 500px;
@@ -407,7 +404,6 @@
   }
 
   .heroAsset {
-    top: 40px;
     left: 65%;
     width: 350px;
     height: 400px;
@@ -431,7 +427,6 @@
   }
 
   .heroAsset {
-    top: 30px;
     width: 280px;
     height: 320px;
   }

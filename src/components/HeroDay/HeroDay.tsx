@@ -73,12 +73,12 @@ export function HeroDay({
         },
       });
 
-      // Animate hero asset (scale + fade)
+      // Animate hero asset (slide up from bottom + fade)
       if (assetRef.current) {
         entranceTl.fromTo(
           assetRef.current,
-          { opacity: 0, scale: 0.9 },
-          { opacity: 1, scale: 1, duration: 1.2 },
+          { y: '100%', opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out' },
           0
         );
       }
