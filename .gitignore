@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# documentation (ignore all .md except README and CHANGELOG)
+*.md
+!README.md
+!CHANGELOG.md
+
+# docs directory
+docs/

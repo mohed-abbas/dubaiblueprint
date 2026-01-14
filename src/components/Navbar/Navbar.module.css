@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-inline: 169px;
+  padding-inline: clamp(24px, 8vw, 128px);
   pointer-events: none;
 }
 
@@ -147,21 +147,13 @@
 
 /* ===================
  * RESPONSIVE STYLES
- * Desktop-first
+ * Desktop-first (simplified - clamp() handles padding)
  * =================== */
-
-/* Laptop (1280px and below) */
-@media (max-width: 1280px) {
-  .navbar {
-    padding-inline: 80px;
-  }
-}
 
 /* Tablet (1024px and below) */
 @media (max-width: 1024px) {
   .navbar {
     top: 40px;
-    padding-inline: 60px;
   }
 
   .logoText {
@@ -173,7 +165,6 @@
 @media (max-width: 768px) {
   .navbar {
     top: 24px;
-    padding-inline: var(--section-padding-x);
   }
 
   .menuButton {

@@ -7,6 +7,7 @@
  */
 
 .hero {
+  --content-left: clamp(24px, 8vw, 128px);
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -55,8 +56,10 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 829px;
-  height: auto;
+  /* Height-first: ensure building fits within viewport */
+  height: clamp(70vh, 88vh, 92vh);
+  width: auto;
+  max-width: 90vw;
   z-index: 2;
   pointer-events: none;
 }
@@ -65,7 +68,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: top center;
+  object-position: center bottom;
 }
 
 /* ===================
@@ -75,9 +78,9 @@
 
 .headline {
   position: absolute;
-  top: 371px;
-  left: 167px;
-  right: 128px;
+  top: clamp(180px, 40vh, 400px);
+  left: var(--content-left);
+  right: var(--content-left);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -87,7 +90,8 @@
 }
 
 .headlineWrapper {
-  width: 360px;
+  width: auto;
+  max-width: 45%;
   perspective: 1000px;
 }
 
@@ -95,19 +99,23 @@
 .headlineGradient {
   display: block;
   font-family: var(--font-display);
-  font-size: var(--text-headline);
+  font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
   font-weight: var(--font-normal);
   line-height: 1.2;
   letter-spacing: var(--tracking-headline);
-  text-align: left;
   white-space: nowrap;
   /* Performance: hint browser to prepare for animations */
   will-change: transform, opacity;
 }
 
 .headlinePrimary {
+  text-align: left;
   color: var(--color-secondary);
   transform-style: preserve-3d;
+}
+
+.headlineGradient {
+  text-align: right;
 }
 
 /* Style for split characters in cycling animation */
@@ -164,9 +172,10 @@
 
 .heroDetails {
   position: absolute;
-  top: 673px;
-  left: 169px;
-  width: 232px;
+  bottom: clamp(100px, 15vh, 180px);
+  left: var(--content-left);
+  width: auto;
+  max-width: clamp(200px, 25vw, 300px);
   z-index: var(--z-dropdown);
 }
 
@@ -178,7 +187,7 @@
   letter-spacing: var(--tracking-body-tight);
   color: var(--color-secondary);
   margin-bottom: var(--space-4);
-  max-width: 230px;
+  max-width: 100%;
 }
 
 /* ===================
@@ -277,70 +286,28 @@
 
 /* ===================
  * RESPONSIVE STYLES
- * Desktop-first
+ * Desktop-first (simplified - clamp() handles most scaling)
  * =================== */
 
-/* Large Desktop (1440px and below) */
-@media (max-width: 1440px) {
-  .headline {
-    left: 80px;
-    right: 80px;
-  }
-
-  .heroDetails {
-    left: 100px;
-  }
-}
-
-/* Laptop (1280px and below) */
-@media (max-width: 1280px) {
-  .headline {
-    top: 320px;
-    left: 60px;
-    right: 60px;
-  }
-
-  .heroDetails {
-    top: 580px;
-    left: 80px;
-  }
-
-  .heroAsset {
-    width: 650px;
-    height: 700px;
-  }
-}
-
-/* Tablet (1024px and below) */
+/* Tablet (1024px and below) - Stack headlines */
 @media (max-width: 1024px) {
   .headline {
-    top: 280px;
-    left: 40px;
-    right: 40px;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-2);
   }
 
   .headlineWrapper {
-    width: auto;
+    max-width: 100%;
   }
 
   .headlinePrimary,
   .headlineGradient {
-    font-size: 3rem;
     text-align: left;
   }
 
-  .heroDetails {
-    top: 480px;
-    left: 40px;
-  }
-
   .heroAsset {
-    left: 55%;
-    width: 550px;
-    height: 600px;
+    left: 60%;
   }
 }
 
@@ -350,36 +317,12 @@
     min-height: 100svh;
   }
 
-  .headline {
-    top: 200px;
-    left: var(--section-padding-x);
-    right: var(--section-padding-x);
-  }
-
-  .headlinePrimary,
-  .headlineGradient {
-    font-size: 2.5rem;
+  .heroAsset {
+    left: 55%;
   }
 
   .heroDetails {
-    top: 380px;
-    left: var(--section-padding-x);
-    width: auto;
-    max-width: 280px;
-  }
-
-  .heroAsset {
-    left: 60%;
-    width: 450px;
-    height: 500px;
-  }
-
-  .tagline {
-    font-size: var(--text-sm);
-  }
-
-  .ctaText {
-    font-size: var(--text-sm);
+    max-width: clamp(200px, 60vw, 300px);
   }
 
   /* Hide clouds layer on tablet and below for performance */
@@ -390,23 +333,18 @@
 
 /* Mobile (480px and below) */
 @media (max-width: 480px) {
-  .headline {
-    top: 160px;
+  .heroAsset {
+    left: 50%;
+    height: clamp(55vh, 70vh, 80vh);
+    max-width: 95vw;
   }
 
-  .headlinePrimary,
-  .headlineGradient {
-    font-size: 2rem;
+  .headline {
+    top: clamp(120px, 25vh, 200px);
   }
 
   .heroDetails {
-    top: 320px;
-  }
-
-  .heroAsset {
-    left: 65%;
-    width: 350px;
-    height: 400px;
+    bottom: clamp(80px, 12vh, 120px);
   }
 
   .ctaButton {
@@ -416,18 +354,5 @@
   .ctaIcon {
     width: 20px;
     height: 20px;
-  }
-}
-
-/* Small Mobile (320px and below) */
-@media (max-width: 320px) {
-  .headlinePrimary,
-  .headlineGradient {
-    font-size: 1.75rem;
-  }
-
-  .heroAsset {
-    width: 280px;
-    height: 320px;
   }
 }
