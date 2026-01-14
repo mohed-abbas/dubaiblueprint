@@ -1,16 +1,16 @@
 "use client";
 
-import { HeroNightSlide } from "@/components/HeroNightSlide";
+import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { Ticker } from "@/components/Ticker";
 
-export default function Home() {
+export default function V2Page() {
   return (
     <main>
-      {/* Hero Section with Navbar and Ticker */}
+      {/* Original Night Hero with Fade+Scale Animation */}
       <div style={{ position: "relative" }}>
         <Navbar onMenuClick={() => {}} />
-        <HeroNightSlide
+        <Hero
           headline={{
             primary: "See Clearly.",
             gradient: "Decide Better.",
